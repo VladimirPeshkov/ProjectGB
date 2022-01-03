@@ -18,6 +18,25 @@
   justify-content: flex-end;
 }
 
+.cart {
+  position: relative;
+}
+
+.cart__field-wrapp {
+  position: absolute;
+  width: 400px;
+  height: 0;
+  background: #fff;
+  right: 0;
+  top: 80px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.cart__field-wrapp--open {
+  height: auto;
+}
+
 .cart__btn {
   cursor: pointer;
   width: 40px;
