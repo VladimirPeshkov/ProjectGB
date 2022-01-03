@@ -8,6 +8,7 @@ export default class ProductsList {
         this._productsList = [];
         this._creeteProductsList();
         this._renderProductsList();
+        this.getSum();
     }
 
     _fetchProductsData = url => {
@@ -35,4 +36,14 @@ export default class ProductsList {
 
         this._parentElement.insertAdjacentElement('beforeend', productsListNode);
     }
+
+    getSum = () => {
+        let sum = 0;
+        this._productsData.forEach(({price}) => sum += price);
+        document.querySelector('.sum').innerHTML = `${sum} $`;
+    }
+
+
+
+
 }
