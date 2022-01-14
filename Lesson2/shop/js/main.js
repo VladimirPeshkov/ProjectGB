@@ -1,5 +1,3 @@
-import ProductsList from "./modules/productsList.js";
-import BasketList from "./modules/basketList.js";
+import Shop from "./modules/shop.js";
 
-new ProductsList('.catalog');
-new BasketList();
+new Shop();
