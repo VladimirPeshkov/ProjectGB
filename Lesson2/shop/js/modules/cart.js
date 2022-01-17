@@ -6,6 +6,7 @@ export default class Cart {
         this._products = [];
         this._sum = 0;
         this._openCart();
+        this._fetchCartData()
     }
 
 
@@ -14,26 +15,20 @@ export default class Cart {
 
         buttonOpen.addEventListener('click', ()=> {
             document.querySelector('.cart__field-wrapp').classList.toggle('cart__field-wrapp--open');
-
-            if (document.querySelector('.cart__field-wrapp').classList.contains('cart__field-wrapp--open')) {
-                this._fetchCartData();
-            } else {
-                document.querySelector('.cart__field').removeChild(document.querySelector('.cart__list'));
-            }
         })
     }
 
     _getNumProductsInCart() {
     
         if (this._products.length === 0){
-            console.log(this._products.length)
-            document.querySelector('.cart__field').insertAdjacentText('afterbegin', 'В корзине нет товаров');
+            
+            document.querySelector('.cart__list').insertAdjacentText('afterbegin', 'В корзине нет товаров');
         } 
     }
 
 
     _fetchCartData() {
-        let promie = new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json', true);
             xhr.onreadystatechange = function(){
@@ -48,7 +43,7 @@ export default class Cart {
             }
             xhr.send();
         })
-        promie
+        promise
             .then((data)=> {
                 this._cartData = JSON.parse(data)
                 this._getProductsData()
@@ -91,7 +86,7 @@ export default class Cart {
     _getSum() {
         this._sum = 0;
         for (let product of this._products){
-            this._sum += product.price;
+            this._sum += product.price * product.quantity;
         }
 
         document.querySelector('.cart__sum').innerText = `${this._sum} руб`
@@ -106,13 +101,11 @@ export default class Cart {
         let cartField = document.querySelector('.cart__field');
         cartField.insertAdjacentElement('afterbegin', cartList);
 
-        this._products.forEach(({id_product, product_name, price}) => {
-            cartList.insertAdjacentElement('beforeend', new ProductCardForCart(id_product, product_name, price)._createCard());
+        this._products.forEach(({id_product, product_name, price, quantity}) => {
+            cartList.insertAdjacentElement('beforeend', new ProductCardForCart(id_product, product_name, price, quantity)._createCard());
         });
 
         this._getNumProductsInCart();
         this._getSum();
-
-        console.log('рендер')
     }
 }

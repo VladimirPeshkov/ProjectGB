@@ -24,6 +24,7 @@
 
 .cart__field-wrapp {
   position: absolute;
+  left: 60px;
   width: 400px;
   height: 0;
   background: #fff;
@@ -62,5 +63,3 @@
   display: flex;
   margin-top: 30px;
 }
-
-

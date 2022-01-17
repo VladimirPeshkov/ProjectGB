@@ -42,7 +42,5 @@ export default class Catalog {
             productsList.insertAdjacentElement('beforeend', new ProductCardForCatalog(id_product, product_name, price)._createCard())
         })
 
-        console.log(1);
-
     }
 }
